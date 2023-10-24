@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"backend-test/helpers"
+	"encoding/json"
+	"fmt"
 	"io"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,14 +20,19 @@ type Cep struct {
 	IBGE        string `json:"ibge,omitempty"`
 	GIA         string `json:"gia,omitempty"`
 	DDD         string `json:"ddd,omitempty"`
-	SIAFI       string `json:"siafi omitempty"`
+	SIAFI       string `json:"siafi,omitempty"`
 }
 
 func GetCepData(c *gin.Context) {
 
-	var Cep Cep
+	cep := c.Param("cep")
 
-	response, err := http.Get("https://viacep.com.br/ws/01001000/json/")
+	var CepResponse Cep
+
+	uri := fmt.Sprintf("https://viacep.com.br/ws/%s/json/", cep)
+
+	response, err := http.Get(uri)
+
 	if err != nil {
 		helpers.Error(c, http.StatusInternalServerError, err)
 		return
@@ -35,8 +41,14 @@ func GetCepData(c *gin.Context) {
 	responseData, err := io.ReadAll(response.Body)
 
 	if err != nil {
-		log.Fatal(err)
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
 	}
 
-	helpers.JSON(c, http.StatusOK, string(responseData))
+	if err := json.Unmarshal(responseData, &CepResponse); err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	helpers.JSON(c, http.StatusOK, CepResponse)
 }
