@@ -1,6 +1,7 @@
 package models
 
 type Address struct {
+	ID          uint   `gorm:"primaryKey"`
 	Rua         string `binding:"required" json:"rua"`
 	Numero      string `binding:"required" json:"numero"`
 	Bairro      string `binding:"required" json:"bairro"`
@@ -9,14 +10,5 @@ type Address struct {
 	UF          UF
 	CEPID       uint
 	CEP         CEP
-}
-
-type UF struct {
-	ID uint `gorm:"primaryKey"`
-	UF string
-}
-
-type CEP struct {
-	ID  uint `gorm:"primaryKey"`
-	CEP string
+	UserID      uint
 }
