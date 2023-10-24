@@ -1,16 +1,19 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"backend-test/controllers"
+
+	"github.com/gin-gonic/gin"
+)
 
 func ConfigRoutes(r *gin.Engine) *gin.Engine {
 
 	user := r.Group("user")
 	{
-		user.GET("/", func(ctx *gin.Context) {
-			ctx.JSON(200, map[string]any{
-				"res": "oi",
-			})
-		})
+		user.POST("/", controllers.CreateNewUser)
+		user.PUT("/:userId", controllers.UpdateUserInfo)
+		user.GET("/", controllers.GetAllUsers)
+		user.GET("/:info", controllers.GetUser)
 	}
 
 	return r

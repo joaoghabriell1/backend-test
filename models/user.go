@@ -15,6 +15,10 @@ type User struct {
 	Address          Address
 }
 
+func (u *User) ValidateCpf() {
+
+}
+
 func MigrateModels() {
 	database.DB.AutoMigrate(&User{}, &Address{}, &CEP{}, &UF{})
 }

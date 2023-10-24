@@ -24,3 +24,8 @@ func (r *UserRepository) CreateNewUser(u *models.User) error {
 
 	return nil
 }
+
+func (r *UserRepository) UpdateUserInfo(u *models.User) error {
+
+	return nil
+}

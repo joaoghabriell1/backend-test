@@ -2,10 +2,11 @@ package models
 
 type Address struct {
 	ID          uint   `gorm:"primaryKey"`
-	Rua         string `binding:"required" json:"rua"`
-	Numero      string `binding:"required" json:"numero"`
-	Bairro      string `binding:"required" json:"bairro"`
+	Rua         string `json:"rua" binding:"required"`
+	Numero      string `json:"numero" binding:"required"`
+	Bairro      string `json:"bairro" binding:"required"`
 	Complemento string `json:"complemento"`
+	Cidade      string `json:"cidade" binding:"required"`
 	UFID        uint
 	UF          UF
 	CEPID       uint
