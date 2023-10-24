@@ -27,7 +27,7 @@ func (r *UserRepository) CreateNewUser(u *models.User) error {
 	return nil
 }
 
-func (r *UserRepository) UpdateUserInfo(u *models.User) error {
+func (r *UserRepository) UpdateUser(u *models.User) error {
 
 	err := r.DB.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&u).Error
 
@@ -49,7 +49,7 @@ func (r *UserRepository) GetUser(u *[]models.User, userInfo string) error {
 	return nil
 }
 
-func (r *UserRepository) GetAllUsers(u *[]models.User) error {
+func (r *UserRepository) GetUsers(u *[]models.User) error {
 
 	err := r.DB.Preload("Address").Preload("Address.UF").Preload("Address.CEP").Find(&u).Error
 

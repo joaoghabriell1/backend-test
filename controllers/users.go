@@ -5,14 +5,13 @@ import (
 	"backend-test/helpers"
 	"backend-test/models"
 	"backend-test/repositories"
-	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-func CreateNewUser(c *gin.Context) {
+func CreateUser(c *gin.Context) {
 
 	var User models.User
 
@@ -33,7 +32,7 @@ func CreateNewUser(c *gin.Context) {
 	helpers.JSON(c, http.StatusNoContent, User)
 }
 
-func UpdateUserInfo(c *gin.Context) {
+func UpdateUser(c *gin.Context) {
 
 	var User models.User
 
@@ -53,7 +52,7 @@ func UpdateUserInfo(c *gin.Context) {
 
 	repo := repositories.NewUserRepository(database.DB)
 
-	err = repo.UpdateUserInfo(&User)
+	err = repo.UpdateUser(&User)
 
 	if err != nil {
 		helpers.Error(c, http.StatusInternalServerError, err)
@@ -63,13 +62,13 @@ func UpdateUserInfo(c *gin.Context) {
 	helpers.JSON(c, http.StatusOK, User)
 }
 
-func GetAllUsers(c *gin.Context) {
+func GetUsers(c *gin.Context) {
 
 	var Users []models.User
 
 	repo := repositories.NewUserRepository(database.DB)
 
-	err := repo.GetAllUsers(&Users)
+	err := repo.GetUsers(&Users)
 
 	if err != nil {
 		helpers.Error(c, http.StatusInternalServerError, err)
@@ -87,7 +86,6 @@ func GetUsersByNameOrCpf(c *gin.Context) {
 	userInfo := c.Param("userInfo")
 
 	repo := repositories.NewUserRepository(database.DB)
-	fmt.Println(userInfo)
 
 	err := repo.GetUser(&Users, userInfo)
 

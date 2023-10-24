@@ -8,13 +8,13 @@ import (
 
 func ConfigRoutes(r *gin.Engine) *gin.Engine {
 
-	user := r.Group("user")
+	users := r.Group("users")
 	{
-		user.GET("/", controllers.GetAllUsers)
-		user.GET("/:userInfo", controllers.GetUsersByNameOrCpf)
-		user.POST("/", controllers.CreateNewUser)
-		user.PUT("/:userId", controllers.UpdateUserInfo)
-		user.DELETE("/:userId", controllers.DeleteUser)
+		users.GET("/", controllers.GetUsers)
+		users.GET("/:userInfo", controllers.GetUsersByNameOrCpf)
+		users.POST("/", controllers.CreateUser)
+		users.PUT("/:userId", controllers.UpdateUser)
+		users.DELETE("/:userId", controllers.DeleteUser)
 	}
 
 	return r
