@@ -17,6 +17,11 @@ func ConfigRoutes(r *gin.Engine) *gin.Engine {
 		users.DELETE("/:userId", controllers.DeleteUser)
 	}
 
+	ceps := r.Group("ceps")
+	{
+		ceps.GET("/:cep", controllers.GetCepData)
+	}
+
 	return r
 }
 
