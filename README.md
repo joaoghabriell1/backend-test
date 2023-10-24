@@ -1,17 +1,12 @@
 # backend_test
 
-## Instalação
+## Clone o projeto
 ```
 $ git clone https://github.com/joaoghabriell1/backend-test.git
 ```
 
-## How to run
+## Setup
 
-### Ferramentas Necessárias
-
-- PostgreSQL
-
-### Ready
 
 Crie a base de dados:
 
@@ -19,30 +14,32 @@ Crie a base de dados:
 $ CREATE DATABASE backend_test;
 ```
 
-### Dotenv
-
-Modifique o arquivo: `./.env`
+Modifique o arquivo: `.env` :
 
 ```
 [API]
 PORT = 3000
 
-[Database]
+[DATABASE]
 DB_HOST = localhost
 DB_USER = postgres
 DB_PASSWORD = postgres
 DB_NAME = backend_test
 DB_PORT = 5432
-...
 ```
 
 ### Rodando
+
+No diretório raiz do projeto clonado:
 ```
 $ go run main.go 
 ```
+### Endpoints
+
+
+
 
 
 ## Tecnologias
-
 - Gin
 - Gorm
