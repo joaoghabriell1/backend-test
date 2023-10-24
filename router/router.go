@@ -10,10 +10,11 @@ func ConfigRoutes(r *gin.Engine) *gin.Engine {
 
 	user := r.Group("user")
 	{
+		user.GET("/", controllers.GetAllUsers)
+		user.GET("/:userInfo", controllers.GetUsersByNameOrCpf)
 		user.POST("/", controllers.CreateNewUser)
 		user.PUT("/:userId", controllers.UpdateUserInfo)
-		user.GET("/", controllers.GetAllUsers)
-		user.GET("/:info", controllers.GetUser)
+		user.DELETE("/:userId", controllers.DeleteUser)
 	}
 
 	return r

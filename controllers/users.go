@@ -5,6 +5,7 @@ import (
 	"backend-test/helpers"
 	"backend-test/models"
 	"backend-test/repositories"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -59,12 +60,62 @@ func UpdateUserInfo(c *gin.Context) {
 		return
 	}
 
+	helpers.JSON(c, http.StatusOK, User)
 }
 
 func GetAllUsers(c *gin.Context) {
 
+	var Users []models.User
+
+	repo := repositories.NewUserRepository(database.DB)
+
+	err := repo.GetAllUsers(&Users)
+
+	if err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	helpers.JSON(c, http.StatusOK, Users)
+	return
 }
 
-func GetUser(c *gin.Context) {
+func GetUsersByNameOrCpf(c *gin.Context) {
 
+	var Users []models.User
+
+	userInfo := c.Param("userInfo")
+
+	repo := repositories.NewUserRepository(database.DB)
+	fmt.Println(userInfo)
+
+	err := repo.GetUser(&Users, userInfo)
+
+	if err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	helpers.JSON(c, http.StatusOK, Users)
+}
+
+func DeleteUser(c *gin.Context) {
+
+	userId, err := strconv.ParseUint(c.Param("userId"), 10, 64)
+
+	if err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	repo := repositories.NewUserRepository(database.DB)
+
+	err = repo.DeleteUser(uint(userId))
+
+	if err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	helpers.JSON(c, http.StatusOK, userId)
 }
