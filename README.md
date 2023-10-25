@@ -34,12 +34,3 @@ No diretório raiz do projeto clonado:
 ```
 $ go run main.go 
 ```
-### Endpoints
-
-
-
-
-
-## Tecnologias
-- Gin
-- Gorm
