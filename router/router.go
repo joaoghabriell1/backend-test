@@ -28,6 +28,5 @@ func ConfigRoutes(r *gin.Engine) *gin.Engine {
 func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
-
 	return ConfigRoutes(r)
 }

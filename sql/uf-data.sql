@@ -1,5 +1,5 @@
 
-INSERT INTO UF (ID, Nome, UF) 
+INSERT INTO ufs (ID, Nome, Sigla) 
 VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),

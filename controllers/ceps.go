@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"backend-test/helpers"
+	"backend-test/models"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,24 +11,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Cep struct {
-	Cep         string `json:"cep,omitempty"`
-	Logradouro  string `json:"logradouro,omitempty"`
-	Complemento string `json:"compleme nto,omitempty"`
-	Bairro      string `json:"bairro,omitempty"`
-	Localidade  string `json:"localidade,omitempty"`
-	UF          string `json:"uf,omitempty"`
-	IBGE        string `json:"ibge,omitempty"`
-	GIA         string `json:"gia,omitempty"`
-	DDD         string `json:"ddd,omitempty"`
-	SIAFI       string `json:"siafi,omitempty"`
-}
-
 func GetCepData(c *gin.Context) {
 
 	cep := c.Param("cep")
 
-	var CepResponse Cep
+	var CepResponse models.Cep
 
 	uri := fmt.Sprintf("https://viacep.com.br/ws/%s/json/", cep)
 
