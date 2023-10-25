@@ -6,7 +6,7 @@ func JSON(c *gin.Context, status int, res interface{}) {
 
 	if res != nil {
 		c.JSON(status, map[string]any{
-			"res": res,
+			"data": res,
 		})
 	}
 }

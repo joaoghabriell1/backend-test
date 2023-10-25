@@ -7,7 +7,7 @@ type Address struct {
 	Rua         string `json:"rua" binding:"required"`
 	Numero      string `json:"numero" binding:"required"`
 	Bairro      string `json:"bairro" binding:"required"`
-	Complemento string `json:"complemento"`
+	Complemento string `json:"complemento,omitempty"`
 	Cidade      string `json:"cidade" binding:"required"`
 	CEP         string `json:"cep" binding:"required"`
 	UserID      uint

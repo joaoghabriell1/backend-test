@@ -29,7 +29,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	helpers.JSON(c, http.StatusNoContent, User)
+	helpers.JSON(c, http.StatusOK, User.ID)
 }
 
 func UpdateUser(c *gin.Context) {
@@ -79,22 +79,26 @@ func GetUsers(c *gin.Context) {
 	return
 }
 
-func GetUsersByNameOrCpf(c *gin.Context) {
+func GetUserById(c *gin.Context) {
+	var User models.User
 
-	var Users []models.User
-
-	userInfo := c.Param("userInfo")
-
-	repo := repositories.NewUserRepository(database.DB)
-
-	err := repo.GetUser(&Users, userInfo)
+	userId, err := strconv.ParseUint(c.Param("userId"), 10, 64)
 
 	if err != nil {
 		helpers.Error(c, http.StatusInternalServerError, err)
 		return
 	}
 
-	helpers.JSON(c, http.StatusOK, Users)
+	repo := repositories.NewUserRepository(database.DB)
+
+	err = repo.GetUserById(&User, uint(userId))
+
+	if err != nil {
+		helpers.Error(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	helpers.JSON(c, http.StatusOK, User)
 }
 
 func DeleteUser(c *gin.Context) {

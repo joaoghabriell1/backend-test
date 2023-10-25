@@ -1,7 +1,6 @@
 package models
 
 import (
-	"backend-test/database"
 	"errors"
 	"fmt"
 	"strings"
@@ -13,14 +12,10 @@ type User struct {
 	ID               uint   `gorm:"primaryKey" json:"id"`
 	Nome             string `gorm:"type:varchar(60)" json:"nome" binding:"required"`
 	CPF              string `gorm:"unique; not null; type:varchar(11)" json:"cpf" binding:"required"`
-	DataDeNascimento string `gorm:"type:varchar(10)" json:"data_de_nascimento"`
+	DataDeNascimento string `gorm:"type:varchar(10)" json:"data_de_nascimento,omitempty"`
 	Telefone         string `gorm:"type:varchar(20)" json:"telefone" binding:"required"`
 	Email            string `gorm:"type:varchar(30); unique" json:"email" binding:"required,email"`
 	Address          Address
-}
-
-func MigrateModels() {
-	database.DB.AutoMigrate(&User{}, &Address{}, &UF{})
 }
 
 func (u *User) CleanInputs() {
@@ -36,8 +31,6 @@ func (u *User) CleanInputs() {
 
 func (u *User) ValidateCPF() error {
 	cpf := cpfcnpj.NewCPF(u.CPF)
-
-	fmt.Println(cpf)
 
 	if !cpf.IsValid() {
 		return errors.New("CPF inválido.")

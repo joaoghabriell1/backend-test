@@ -11,7 +11,7 @@ import (
 func init() {
 	config.LoadEnvVariables()
 	database.SetupDatabase()
-	models.MigrateModels()
+	models.MigrationModels()
 }
 
 func main() {
