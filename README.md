@@ -14,7 +14,7 @@ Crie a base de dados:
 $ CREATE DATABASE backend_test;
 ```
 
-Modifique o arquivo: `.env` :
+Crie um arquivo: `.env` com os seguintes parâmetros :
 
 ```
 [API]
