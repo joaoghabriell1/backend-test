@@ -55,24 +55,18 @@ func (r *UserRepository) UpdateUser(u *models.User) error {
 	UF, err := models.GetUfById(u.Address.UFID)
 
 	if err != nil {
-		return errors.New("UF Id inválido.")
+		return errors.New("UF id inválido.")
 	}
 
 	u.Address.UF = UF
 
-	if u.Address.ID == 0 {
-		return errors.New("Informe o ID do endereço.")
-	}
-
-	Address, err := models.GetAddressById(int(u.Address.ID))
+	Address, err := models.GetAddressByUserId(u.ID)
 
 	if err != nil {
-		return errors.New("Não foi possível encontrar endereço com o ID informado.")
+		return err
 	}
 
-	if Address.UserID != u.ID {
-		return errors.New("O ID de endereço fornecido não pertence ao usuário.")
-	}
+	u.Address.ID = Address.ID
 
 	err = r.DB.Session(&gorm.Session{FullSaveAssociations: true}).Updates(&u).Error
 

@@ -15,10 +15,10 @@ type Address struct {
 	UF          UF
 }
 
-func GetAddressById(id int) (Address, error) {
+func GetAddressByUserId(id uint) (Address, error) {
 	var Address Address
 
-	err := database.DB.First(&Address, id).Error
+	err := database.DB.Where("user_id = ?", id).Find(&Address).Error
 
 	if err != nil {
 		return Address, err
